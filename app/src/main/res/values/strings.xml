@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">PopularRepo</string>
+    <string name="repos">Repos</string>
+    <string name="favourites">Favourites</string>
+</resources>
