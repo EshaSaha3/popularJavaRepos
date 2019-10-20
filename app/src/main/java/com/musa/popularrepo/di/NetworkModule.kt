@@ -16,5 +16,5 @@ class NetworkModule {
 
 interface RepoService{
     @GET("search/repositories?q=language:java&order=desc&sort=stars")
-    suspend fun getTrendingRepos(): Deferred<List<NetworkRepo>>
+    suspend fun getTrendingReposAsync(): Deferred<List<NetworkRepo>>
 }

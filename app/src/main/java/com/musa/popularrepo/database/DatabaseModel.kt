@@ -10,7 +10,7 @@ import com.squareup.moshi.JsonClass
 
 @Entity
 data class DatabaseModel(
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     val id: String,
     val name: String,
     val description: String,
@@ -22,7 +22,7 @@ data class DatabaseModel(
 
 @Dao
 interface DataAccess {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertRepo(vararg databaseModel: DatabaseModel)
 
     @Query("SELECT * FROM databaseModel")

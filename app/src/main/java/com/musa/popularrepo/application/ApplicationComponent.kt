@@ -13,6 +13,5 @@ interface ApplicationComponent {
 
     fun inject(application: Application)
 
-    fun inject(viewModel:ViewModel)
 }
 

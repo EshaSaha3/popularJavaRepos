@@ -8,6 +8,7 @@ import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Named
+import javax.inject.Singleton
 
 @Module(includes = [NetworkModule::class])
 class ApiServiceModule {
@@ -21,6 +22,12 @@ class ApiServiceModule {
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
+
+    @Singleton
+    @Provides
+    fun provideRepoService(retrofit: Retrofit):RepoService{
+        return  retrofit.create(RepoService::class.java)
+    }
 
 }
 

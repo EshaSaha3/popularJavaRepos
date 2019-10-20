@@ -1,4 +1,4 @@
-package com.musa.popularrepo.repos
+package com.musa.popularrepo.reposFragment
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
