@@ -1,8 +1,9 @@
 package com.musa.popularrepo.di
 
-import com.musa.popularrepo.database.Repo
+import com.musa.popularrepo.repository.NetworkRepo
 import dagger.Module
 import dagger.Provides
+import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 import javax.inject.Named
 
@@ -15,5 +16,5 @@ class NetworkModule {
 
 interface RepoService{
     @GET("search/repositories?q=language:java&order=desc&sort=stars")
-    abstract fun getTrendingRepos(): List<Repo>
+    suspend fun getTrendingRepos(): Deferred<List<NetworkRepo>>
 }

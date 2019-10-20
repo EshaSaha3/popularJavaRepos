@@ -1,6 +1,7 @@
 package com.musa.popularrepo.application
 
 import android.app.Application
+import androidx.lifecycle.ViewModel
 import com.musa.popularrepo.di.ApiServiceModule
 import com.musa.popularrepo.di.LocalDataModule
 import dagger.Component
@@ -11,5 +12,7 @@ import javax.inject.Singleton
 interface ApplicationComponent {
 
     fun inject(application: Application)
+
+    fun inject(viewModel:ViewModel)
 }
 

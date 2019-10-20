@@ -12,7 +12,7 @@ class ApplicationModule(val _application: Application) {
         get() = _application
 
     @Provides
-    fun getgiContext(): Context {
+    fun getContext(): Context {
         return application
     }
 

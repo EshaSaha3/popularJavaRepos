@@ -5,7 +5,7 @@ import com.musa.popularrepo.BuildConfig
 import timber.log.Timber
 
 class MyApplication() : Application() {
-    private lateinit var applicationComponent: ApplicationComponent
+     lateinit var applicationComponent: ApplicationComponent
 
     override fun onCreate() {
         super.onCreate()

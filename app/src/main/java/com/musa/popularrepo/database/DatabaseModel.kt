@@ -4,14 +4,14 @@ package com.musa.popularrepo.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.Database
+import com.musa.popularrepo.model.DomainModel
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @Entity
-@JsonClass(generateAdapter = true)
-data class Repo(
+data class DatabaseModel(
     @PrimaryKey(autoGenerate = true)
-    val id: Long,
+    val id: String,
     val name: String,
     val description: String,
     @Json(name = "html_url")
@@ -23,13 +23,13 @@ data class Repo(
 @Dao
 interface DataAccess {
     @Insert
-    fun insertRepo(vararg repo: Repo)
+    fun insertRepo(vararg databaseModel: DatabaseModel)
 
-    @Query("SELECT * FROM repo")
-    fun getRepo(): LiveData<List<Repo>>
+    @Query("SELECT * FROM databaseModel")
+    fun getRepo(): LiveData<List<DatabaseModel>>
 }
 
-@Database(entities = [Repo::class], version = 1)
+@Database(entities = [DatabaseModel::class], version = 1)
 abstract class RepoDatabase : RoomDatabase() {
     abstract val database: DataAccess
 
