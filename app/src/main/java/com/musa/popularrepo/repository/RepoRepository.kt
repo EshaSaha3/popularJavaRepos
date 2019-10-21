@@ -19,7 +19,7 @@ class RepoRepository @Inject constructor(private val service:RepoService,private
 
     suspend fun refreshRepo(){
         withContext(Dispatchers.IO){
-           val repos = service.getTrendingReposAsync().await()
+           val repos = service.getTrendingReposAsync("java","desc","stars").await()
             repoDatabase.database.insertRepo(*repos.asDatabaseModel())
         }
     }

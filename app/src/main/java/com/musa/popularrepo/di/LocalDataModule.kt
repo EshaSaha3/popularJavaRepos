@@ -1,6 +1,7 @@
 package com.musa.popularrepo.di
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import com.musa.popularrepo.database.RepoDatabase
 import dagger.Module
@@ -11,6 +12,6 @@ import javax.inject.Singleton
 class LocalDataModule {
     @Provides
     @Singleton
-    fun provideRepoDatabase(app:Application):RepoDatabase = Room.databaseBuilder(
-        app,RepoDatabase::class.java,"repos-database.db").build()
+    fun provideRepoDatabase(application:Context):RepoDatabase = Room.databaseBuilder(
+        application,RepoDatabase::class.java,"repos-database.db").build()
 }

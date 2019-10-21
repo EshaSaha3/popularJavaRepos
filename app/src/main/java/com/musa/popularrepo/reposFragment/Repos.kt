@@ -6,12 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 
 import com.musa.popularrepo.R
+import com.musa.popularrepo.application.ApplicationComponent
+import com.musa.popularrepo.application.MyApplication
+import javax.inject.Inject
 
 class Repos : Fragment() {
 
     private lateinit var viewModel: ReposViewModel
+    @Inject lateinit var viewModelFactory:ViewModelProvider.Factory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -22,7 +27,8 @@ class Repos : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(ReposViewModel::class.java)
+        (context!!.applicationContext as MyApplication).applicationComponent.inject(this)
+        viewModel = ViewModelProviders.of(this,viewModelFactory).get(ReposViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
