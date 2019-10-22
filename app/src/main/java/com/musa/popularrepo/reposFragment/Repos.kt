@@ -6,11 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 
 import com.musa.popularrepo.R
 import com.musa.popularrepo.application.ApplicationComponent
 import com.musa.popularrepo.application.MyApplication
+import timber.log.Timber
 import javax.inject.Inject
 
 class Repos : Fragment() {
@@ -29,7 +31,9 @@ class Repos : Fragment() {
         super.onActivityCreated(savedInstanceState)
         (context!!.applicationContext as MyApplication).applicationComponent.inject(this)
         viewModel = ViewModelProviders.of(this,viewModelFactory).get(ReposViewModel::class.java)
-        // TODO: Use the ViewModel
+      viewModel.repos.observe(this, Observer {
+          Timber.i("the size of repo is ${it.size}")
+      })
     }
 
 }

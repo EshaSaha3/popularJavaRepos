@@ -1,10 +1,10 @@
 package com.musa.popularrepo.model
 
 data class DomainModel(
-    val id: String,
+    val id: Int,
     val name: String,
     val description: String,
     val htmlUrl: String,
-    val forks: String,
-    val watchers: String
+    val forks: Int,
+    val watchers: Int
 )

@@ -3,21 +3,20 @@ package com.musa.popularrepo.repository
 import com.musa.popularrepo.database.DatabaseModel
 import com.musa.popularrepo.model.DomainModel
 import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 
 
-@JsonClass(generateAdapter = true)
-data class NetworkRepo(
-    val id: String,
+@Json(name = "items")
+data class Items(
+    val id: Int,
     val name: String,
     val description: String,
     @Json(name = "html_url")
     val htmlUrl: String,
-    val forks: String,
-    val watchers: String
+    val forks: Int,
+    val watchers: Int
 )
 
-fun List<NetworkRepo>.asDatabaseModel(): Array<DatabaseModel> {
+fun List<Items>.asDatabaseModel(): Array<DatabaseModel> {
     return map {
         DatabaseModel(
             id = it.id,

@@ -10,7 +10,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class RepoRepository @Inject constructor(private val service:RepoService,private val repoDatabase: RepoDatabase){
+class RepoRepository @Inject constructor(private val service:RepoService, private val repoDatabase: RepoDatabase){
     val repos : LiveData<List<DomainModel>> = Transformations.map(
         repoDatabase.database.getRepo()){
         it.asDomainModel()
@@ -19,8 +19,8 @@ class RepoRepository @Inject constructor(private val service:RepoService,private
 
     suspend fun refreshRepo(){
         withContext(Dispatchers.IO){
-           val repos = service.getTrendingReposAsync("java","desc","stars").await()
-            repoDatabase.database.insertRepo(*repos.asDatabaseModel())
+           val repos = service.getTrendingReposAsync().await()
+            repoDatabase.database.insertRepo(*repos.items.asDatabaseModel())
         }
     }
 }
