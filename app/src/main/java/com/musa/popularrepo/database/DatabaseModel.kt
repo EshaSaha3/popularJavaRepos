@@ -29,7 +29,7 @@ interface DataAccess {
     fun getRepo(): LiveData<List<DatabaseModel>>
 }
 
-@Database(entities = [DatabaseModel::class], version = 1)
+@Database(entities = [DatabaseModel::class], version = 1,exportSchema = false)
 abstract class RepoDatabase : RoomDatabase() {
     abstract val database: DataAccess
 
