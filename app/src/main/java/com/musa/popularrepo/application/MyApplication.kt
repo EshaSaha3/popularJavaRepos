@@ -53,7 +53,7 @@ class MyApplication() : Application() {
             .build()
 
 
-        WorkManager.getInstance().enqueueUniquePeriodicWork(
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
             RefreshDataWork.WORK_NAME,
             ExistingPeriodicWorkPolicy.KEEP,
             repeatingRequest

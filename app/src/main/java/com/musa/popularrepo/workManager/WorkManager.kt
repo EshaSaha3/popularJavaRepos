@@ -13,7 +13,7 @@ class RefreshDataWork(context: Context, params: WorkerParameters) :
     @Inject
     lateinit var repository: RepoRepository
 
-    companion object{
+    companion object {
         const val WORK_NAME = "RefreshDataWork"
     }
 
@@ -21,12 +21,12 @@ class RefreshDataWork(context: Context, params: WorkerParameters) :
         (context as MyApplication).applicationComponent.inject(this)
     }
 
-    override suspend fun doWork(): Payload {
+    override suspend fun doWork(): Result {
         return try {
             repository.refreshRepo()
-            Payload(Result.SUCCESS)
+            Result.success()
         } catch (e: HttpException) {
-            Payload(Result.RETRY)
+            Result.retry()
         }
 
     }

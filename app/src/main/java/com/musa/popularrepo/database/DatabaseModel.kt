@@ -27,6 +27,9 @@ interface DataAccess {
 
     @Query("SELECT * FROM databaseModel")
     fun getRepo(): LiveData<List<DatabaseModel>>
+
+    @Query("DELETE FROM databasemodel")
+    fun dropTable()
 }
 
 @Database(entities = [DatabaseModel::class], version = 1,exportSchema = false)
