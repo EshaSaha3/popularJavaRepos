@@ -1,6 +1,5 @@
 package com.musa.popularrepo.di
 
-import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.musa.popularrepo.database.RepoDatabase

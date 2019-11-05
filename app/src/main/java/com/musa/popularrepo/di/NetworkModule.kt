@@ -5,6 +5,7 @@ import com.musa.popularrepo.repository.Items
 import dagger.Module
 import dagger.Provides
 import kotlinx.coroutines.Deferred
+import retrofit2.Response
 import retrofit2.http.GET
 import javax.inject.Named
 
@@ -12,11 +13,11 @@ import javax.inject.Named
 class NetworkModule {
     @Provides
     @Named("baseUrl")
-    fun provideBaseUrl():String= "https://api.github.com"
+    fun provideBaseUrl(): String = "https://api.github.com"
 }
 
-interface RepoService{
+interface RepoService {
 
     @GET("search/repositories?q=language:java&order=desc&sort=stars")
-    fun getTrendingReposAsync(): Deferred<NetworkRepo>
+    suspend fun getTrendingReposAsync(): Response<NetworkRepo>
 }
