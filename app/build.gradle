@@ -92,5 +92,8 @@ dependencies {
     //CardView
     implementation "androidx.cardview:cardview:$cardview_version"
 
+    //Gson Adapter Converter
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
+
 
 }

@@ -14,7 +14,6 @@ data class DatabaseModel(
     val id: Int,
     val name: String,
     val description: String,
-    @Json(name = "html_url")
     val htmlUrl: String,
     val forks: Int,
     val watchers: Int
@@ -32,7 +31,7 @@ interface DataAccess {
     fun dropTable()
 }
 
-@Database(entities = [DatabaseModel::class], version = 1,exportSchema = false)
+@Database(entities = [DatabaseModel::class], version = 1, exportSchema = false)
 abstract class RepoDatabase : RoomDatabase() {
     abstract val database: DataAccess
 

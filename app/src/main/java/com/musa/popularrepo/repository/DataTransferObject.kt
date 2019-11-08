@@ -1,5 +1,6 @@
 package com.musa.popularrepo.repository
 
+import com.google.gson.annotations.SerializedName
 import com.musa.popularrepo.database.DatabaseModel
 import com.musa.popularrepo.model.DomainModel
 import com.squareup.moshi.Json
@@ -10,7 +11,7 @@ data class Items(
     val id: Int,
     val name: String,
     val description: String,
-    @Json(name = "html_url")
+    @SerializedName("html_url")
     val htmlUrl: String,
     val forks: Int,
     val watchers: Int
