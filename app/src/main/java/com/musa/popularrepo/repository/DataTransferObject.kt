@@ -1,17 +1,18 @@
 package com.musa.popularrepo.repository
 
-import com.google.gson.annotations.SerializedName
+
 import com.musa.popularrepo.database.DatabaseModel
 import com.musa.popularrepo.model.DomainModel
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
 
-@Json(name = "items")
+@JsonClass(generateAdapter = true)
 data class Items(
     val id: Int,
     val name: String,
     val description: String,
-    @SerializedName("html_url")
+    @Json(name = "html_url")
     val htmlUrl: String,
     val forks: Int,
     val watchers: Int
@@ -31,7 +32,7 @@ fun List<Items>.asDatabaseModel(): Array<DatabaseModel> {
 }
 
 
-fun List<DatabaseModel>.asDomainModel():List<DomainModel>{
+fun List<DatabaseModel>.asDomainModel(): List<DomainModel> {
     return map {
         DomainModel(
             id = it.id,

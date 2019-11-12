@@ -10,27 +10,39 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.musa.popularrepo.base.LoadingCallback
 import com.musa.popularrepo.databinding.ActivityMainBinding
+import com.musa.popularrepo.extensions.*
+import kotlinx.android.synthetic.main.loading_indicator.view.*
 
 
 class MainActivity : AppCompatActivity(), LoadingCallback {
+    override fun showLoading(message: String) {
+        binding.loadingLayoutContainer.progressMessage.text = message
+    }
+
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun showLoading() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        disableTouch()
+        hideKeyboard()
+        showLoading(R.string.default_loading_message)
     }
 
     override fun showLoading(resId: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        binding.loadingLayoutContainer.loadingLayout.showWithChildren()
+        binding.loadingLayoutContainer.progressMessage.text = getString(resId)
+
     }
 
     override fun dismissLoading() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        binding.loadingLayoutContainer.loadingLayout.dissmissWithChildren()
+        enableTouch()
     }
 
-    override fun showError(message: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showError() {
+        binding.loadingLayoutContainer.progressBar.setBackgroundResource(R.drawable.ic_connection_error)
+        dismissLoading()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

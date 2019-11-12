@@ -10,12 +10,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 
+
 import com.musa.popularrepo.R
 import com.musa.popularrepo.application.MyApplication
+import com.musa.popularrepo.base.BaseFragment
 import com.musa.popularrepo.databinding.ReposFragmentBinding
+import com.musa.popularrepo.networkUtils.LoadingStatus
 import javax.inject.Inject
 
-class Repos : Fragment() {
+class Repos : BaseFragment() {
 
     private lateinit var viewModel: ReposViewModel
     @Inject
@@ -46,6 +49,14 @@ class Repos : Fragment() {
                 adapter.submitList(it)
             }
         })
+        viewModel.loadingStatus.observe(this, Observer {
+            when (it) {
+                is LoadingStatus.Loading -> mainActivity.showLoading()
+                is LoadingStatus.Error -> mainActivity.showError()
+                LoadingStatus.Success -> mainActivity.dismissLoading()
+            }
+        })
     }
+
 
 }

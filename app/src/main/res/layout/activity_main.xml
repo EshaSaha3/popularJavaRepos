@@ -23,7 +23,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:navGraph="@navigation/main" />
 
-            <include layout="@layout/loading_indicator" />
+            <include layout="@layout/loading_indicator"
+                android:id="@+id/loading_layout_container"/>
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottomNavigationView"
