@@ -1,6 +1,8 @@
 package com.musa.popularrepo.reposFragment
 
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.musa.popularrepo.base.BaseViewModel
 import com.musa.popularrepo.repository.RepoRepository
@@ -11,6 +13,8 @@ import javax.inject.Inject
 
 class ReposViewModel @Inject constructor(private val repository: RepoRepository) : BaseViewModel() {
     val repos = repository.repos
+    private var _favourite = MutableLiveData<Int?>()
+    val favourite get() = _favourite
 
     init {
         super.isLoading("Fetching Repos Please Wait")
@@ -24,6 +28,14 @@ class ReposViewModel @Inject constructor(private val repository: RepoRepository)
             }
 
         }
+    }
+
+    fun addToFavourites(repoId: Int) {
+        _favourite.value = repoId
+    }
+
+    fun doneAddingToFavourite() {
+        _favourite.value = null
     }
 
 }

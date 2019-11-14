@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -42,7 +43,11 @@ class Repos : BaseFragment() {
         super.onActivityCreated(savedInstanceState)
         (context!!.applicationContext as MyApplication).applicationComponent.inject(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ReposViewModel::class.java)
-        val adapter = ReposAdapter()
+        val adapter = ReposAdapter(ReposAdapter.ReposListener { repoId ->
+            viewModel.addToFavourites(repoId)
+            Toast.makeText(context, "Added successfully to your favourite Repositories", Toast.LENGTH_LONG)
+                .show()
+        })
         binding.reposRecyclerView.adapter = adapter
         viewModel.repos.observe(this, Observer {
             it?.let {

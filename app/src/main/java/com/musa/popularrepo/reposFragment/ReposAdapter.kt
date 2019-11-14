@@ -1,5 +1,6 @@
 package com.musa.popularrepo.reposFragment
 
+import android.graphics.Color
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -9,27 +10,30 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.musa.popularrepo.databinding.ListItemRepoBinding
 
-class ReposAdapter : ListAdapter<DomainModel, ReposAdapter.ReposViewHolder>(DiffCallBack()) {
+class ReposAdapter(private val listener: ReposListener) :
+    ListAdapter<DomainModel, ReposAdapter.ReposViewHolder>(DiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReposViewHolder {
         return ReposViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: ReposViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), listener)
     }
 
 
-    class ReposViewHolder private constructor(private val binding: ListItemRepoBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ReposViewHolder private constructor(private val binding: ListItemRepoBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(data: DomainModel) {
+        fun bind(data: DomainModel, listener: ReposListener) {
             binding.domainModel = data
+            binding.clickListener = listener
         }
 
         companion object {
             fun from(parent: ViewGroup): ReposViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ListItemRepoBinding.inflate(layoutInflater,parent,false)
+                val binding = ListItemRepoBinding.inflate(layoutInflater, parent, false)
                 return ReposViewHolder(binding)
             }
         }
@@ -39,12 +43,16 @@ class ReposAdapter : ListAdapter<DomainModel, ReposAdapter.ReposViewHolder>(Diff
 
     class DiffCallBack : DiffUtil.ItemCallback<DomainModel>() {
         override fun areItemsTheSame(oldItem: DomainModel, newItem: DomainModel): Boolean {
-            return oldItem.id== oldItem.id
+            return oldItem.id == oldItem.id
         }
 
         override fun areContentsTheSame(oldItem: DomainModel, newItem: DomainModel): Boolean {
             return oldItem == newItem
         }
+    }
+
+    class ReposListener(val clickListener: (domainModelId: Int) -> Unit) {
+        fun onclick(domainModel: DomainModel) = clickListener(domainModel.id)
     }
 
 }

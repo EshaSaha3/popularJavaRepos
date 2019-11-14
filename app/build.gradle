@@ -95,5 +95,8 @@ dependencies {
     //Gson Adapter Converter
     implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
 
+    //Material Design Library
+    api 'com.google.android.material:material:1.2.0-alpha01'
+
 
 }
