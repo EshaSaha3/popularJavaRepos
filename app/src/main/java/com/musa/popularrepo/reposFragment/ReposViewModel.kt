@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.musa.popularrepo.base.BaseViewModel
+import com.musa.popularrepo.networkUtils.LoadingStatus
 import com.musa.popularrepo.repository.RepoRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -16,14 +17,26 @@ class ReposViewModel @Inject constructor(private val repository: RepoRepository)
     private var _favourite = MutableLiveData<Int?>()
     val favourite get() = _favourite
 
+    private fun isLoading(message : String){
+        _loadingStatus.value = LoadingStatus.Loading(message)
+    }
+
+    private fun isError(errorCode: String?, errorMessage:String?){
+        _loadingStatus.value = LoadingStatus.Error(errorCode,errorMessage)
+    }
+
+    private fun isSuccess(){
+        _loadingStatus.value = LoadingStatus.Success
+    }
+
     init {
-        super.isLoading("Fetching Repos Please Wait")
+        isLoading("Fetching Repos Please Wait")
         viewModelScope.launch {
             try {
                 repository.refreshRepo()
-                super.isSuccess()
+                isSuccess()
             } catch (e: Exception) {
-                super.isError(e.localizedMessage, e.localizedMessage)
+                isError(e.localizedMessage, e.localizedMessage)
                 Timber.e(e)
             }
 
